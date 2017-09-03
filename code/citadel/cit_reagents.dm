@@ -238,6 +238,7 @@
 /datum/reagent/stableslimetoxin/classic/mutate(mob/living/carbon/human/H)
 	. = ..()
 	var/current_species = H.dna.species.type
+	var/datum/species/mutation = race
 	if(mutation && mutation != current_species)
 		var/datum/action/innate/split_body/splittin
 		var/datum/action/innate/swap_body/swappin
