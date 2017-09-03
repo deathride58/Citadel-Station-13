@@ -238,8 +238,11 @@
 /datum/reagent/stableslimetoxin/classic/mutate(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/species/mutation = race
-	if(mutation)
-		var/datum/action/innate/split_body/splittin
-		var/datum/action/innate/swap_body/swappin
+	var/current_species = H.dna.species.type
+	var/datum/action/innate/split_body/splittin
+	var/datum/action/innate/swap_body/swappin
+	if(mutation && mutation != current_species)
+		spittin = new
 		splittin.Grant(H)
+		swappin = new
 		swappin.Grant(H)
