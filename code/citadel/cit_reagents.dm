@@ -233,3 +233,12 @@
 	required_reagents = list("anaphro" = 5, "acetone" = 1)
 	required_temp = 300
 	mix_message = "The mixture thickens and heats up slighty..."
+
+//Modifications to TG chems
+/datum/reagent/stableslimetoxin/classic/mutate(mob/living/carbon/human/H)
+	. = ..()
+	if(mutation && mutation != current_species)
+		var/datum/action/innate/split_body/splittin
+		var/datum/action/innate/swap_body/swappin
+		splittin.Grant(H)
+		swappin.Grant(H)
