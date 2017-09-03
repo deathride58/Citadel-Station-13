@@ -239,10 +239,8 @@
 	. = ..()
 	var/datum/species/mutation = race
 	var/current_species = H.dna.species.type
-	var/datum/action/innate/split_body/splittin
-	var/datum/action/innate/swap_body/swappin
 	if(mutation && mutation != current_species)
-		splittin = new
-		splittin.Grant(H)
-		swappin = new
-		swappin.Grant(H)
+		mutation.slime_split = new
+		mutation.slime_split.Grant(H)
+		mutation.swap_body = new
+		mutation.swap_body.Grant(H)
