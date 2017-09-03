@@ -240,7 +240,7 @@
 	var/datum/species/mutation = race
 	var/current_species = H.dna.species.type
 	if(mutation && mutation != current_species)
-		mutation.slime_split = new
-		mutation.slime_split.Grant(H)
-		mutation.swap_body = new
-		mutation.swap_body.Grant(H)
+		mutation/slime_split = new
+		mutation/slime_split.Grant(H)
+		mutation/swap_body = new
+		mutation/swap_body.Grant(H)
