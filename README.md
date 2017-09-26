@@ -1,5 +1,5 @@
 
-##Citadel Station 13 <BR>
+##Gateway Station 13 <BR>
 Based and maintained from /tg/station.<BR>
 
 [![Build Status](https://api.travis-ci.org/Citadel-Station-13/Citadel-Station-13.png)](https://travis-ci.org/Citadel-Station-13/Citadel-Station-13) [![Krihelimeter](http://www.krihelinator.xyz/badge/Citadel-Station-13/Citadel-Station-13)](http://www.krihelinator.xyz)
