@@ -12,11 +12,8 @@ Based and maintained from /tg/station.<BR>
 **Wiki** http://tgstation13.org/wiki/Main_Page <BR>
 **IRC:** irc://irc.rizon.net/coderbus or if you dont have an IRC client, you can click  [here](https://kiwiirc.com/client/irc.rizon.net:6667/?&theme=cli#coderbus).<BR>
 
-**Citadel Station Information** <BR>
-**Forums:** http://citadel-station.net/forum/ <BR>
-**Ban Appeals:** http://citadel-station.net/forum/forumdisplay.php?fid=8 <BR>
-**Code:** https://github.com/Citadel-Station-13/Citadel-Station-13 <BR>
-**Discord:**  [Here](https://discord.gg/3gJ9pnM). <BR>
+**Gateway Station 13**
+**Discord:**  [Here](https://discord.gg/6mWd5pR). <BR>
 
 ## DOWNLOADING
 
@@ -88,33 +85,6 @@ install, overwriting when prompted except if we've specified otherwise, and
 recompile the game.  Once you start the server up again, you should be running
 the new version.
 
-## MAPS
-
-Citadel Station maintains their own map, but frequently uses /tg/station's currently maintained maps as well.
-
-* [tgstation2 (default)](http://tgstation13.org/wiki/Boxstation)
-* [MetaStation](https://tgstation13.org/wiki/MetaStation)
-* [DeltaStation](https://tgstation13.org/wiki/DeltaStation)
-* [OmegaStation](https://tgstation13.org/wiki/OmegaStation)
-* [PubbyStation](https://tgstation13.org/wiki/PubbyStation)
-
-
-All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
-
-The map that will be loaded for the upcoming round is determined by reading data/next_map.json, which is a copy of the json files found in the _maps tree. If this file does not exist, the default map from config/maps.txt will be loaded. Failing that, tgstation2 will be loaded. If you want to set a specific map to load next round you can use the Change Map verb in game before restarting the server or copy a json from _maps to data/next_map.json before starting the server. Also, for debugging purposes, ticking a corresponding map's code file in Dream Maker will force that map to load every round.
-
-If you are hosting a server, and want randomly picked maps to be played each round, you can enable map rotation in [config.txt](config/config.txt) and then set the maps to be picked in the [maps.txt](config/maps.txt) file.
-
-Anytime you want to make changes to a map it's imperative you use the [Map Merging tools](http://tgstation13.org/wiki/Map_Merger)
-
-## AWAY MISSIONS
-
-/tg/station supports loading away missions however they are disabled by default.
-
-Map files for away missions are located in the _maps/RandomZLevels directory. Each away mission includes it's own code definitions located in /code/modules/awaymissions/mission_code. These files must be included and compiled with the server beforehand otherwise the server will crash upon trying to load away missions that lack their code.
-
-To enable an away mission open `config/awaymissionconfig.txt` and uncomment one of the .dmm lines by removing the #. If more than one away mission is uncommented then the away mission loader will randomly select one the enabled ones to load.
-
 ## SQL SETUP
 
 The SQL backend requires a MySQL server. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/tgstation_schema.sql and /SQL/tgstation_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located here: http://www.tgstation13.org/wiki/Downloading_the_source_code#Setting_up_the_database
@@ -125,8 +95,7 @@ Included in the repository is a python3 compatible IRC bot capable of relaying a
 IRC channel/server, see the /bot folder for more
 
 ## CONTRIBUTING
-
-Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md)
+To help contribute with the code, Please speak with the Host Forizen or any offical Coders/Mappers so that we can discuss issues and changes which may need to take place on the current code.
 
 ## LICENSE
 
