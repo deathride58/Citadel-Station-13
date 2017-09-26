@@ -1,5 +1,7 @@
 <!-- Most valid html will work in here, excluding images. -->
 
-<h1>Welcome to Space Station 13!</h1>
+<h1>Welcome to Gate Station 13!</h1>
 
-<i>This server is running a /tg/station 13 Git build.</i>
+<i>This server is running a custom branch of the /tg/station code.</i>
+<i>Make sure to join our Discord for updates on Up-times and progress!</i>
+<i><b>Discord Link :  https://discord.gg/6mWd5pR <b><i>
