@@ -4,7 +4,7 @@
 		humans, butchering all other living things to \
 		sustain the zombie, smashing open airlock doors and opening \
 		child-safe caps on bottles."
-	flags = NODROP|ABSTRACT|DROPDEL
+	flags_1 = NODROP_1|ABSTRACT_1|DROPDEL_1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "bloodhand_left"
@@ -48,6 +48,16 @@
 	if(!infection)
 		infection = new()
 		infection.Insert(target)
+
+
+/obj/item/zombie_hand/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is ripping [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(isliving(user))
+		var/mob/living/L = user
+		var/obj/item/bodypart/O = L.get_bodypart("head")
+		if(O)
+			O.dismember()
+	return (BRUTELOSS)
 
 /obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)

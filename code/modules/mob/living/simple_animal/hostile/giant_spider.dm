@@ -15,8 +15,6 @@
 		if(L.reagents)
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 
-
-
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
@@ -29,7 +27,7 @@
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 10
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/weapon/reagent_containers/food/snacks/spiderleg = 8)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -50,6 +48,7 @@
 	see_in_dark = 4
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	var/playable_spider = FALSE
+	devourable = TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
 	if(href_list["activate"])
@@ -80,7 +79,7 @@
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
 	gender = FEMALE
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/weapon/reagent_containers/food/snacks/spiderleg = 8, /obj/item/weapon/reagent_containers/food/snacks/spidereggs = 4)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 5
@@ -103,6 +102,88 @@
 	poison_per_bite = 5
 	move_to_delay = 5
 
+//vipers are the rare variant of the hunter, no IMMEDIATE damage but so much poison medical care will be needed fast.
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
+	name = "viper"
+	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
+	icon_state = "viper"
+	icon_living = "viper"
+	icon_dead = "viper_dead"
+	maxHealth = 40
+	health = 40
+	melee_damage_lower = 1
+	melee_damage_upper = 1
+	poison_per_bite = 12
+	move_to_delay = 4
+	poison_type = "venom" //all in venom, glass cannon. you bite 5 times and they are DEFINITELY dead, but 40 health and you are extremely obvious. Ambush, maybe?
+	speed = 1
+
+//tarantulas are really tanky, regenerating (maybe), hulky monster but are also extremely slow, so.
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula
+	name = "tarantula"
+	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes."
+	icon_state = "tarantula"
+	icon_living = "tarantula"
+	icon_dead = "tarantula_dead"
+	maxHealth = 300 // woah nelly
+	health = 300
+	melee_damage_lower = 35
+	melee_damage_upper = 40
+	poison_per_bite = 0
+	move_to_delay = 8
+	speed = 7
+	status_flags = NONE
+	mob_size = MOB_SIZE_LARGE
+
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula/movement_delay()
+	var/turf/T = get_turf(src)
+	if(locate(/obj/structure/spider/stickyweb) in T)
+		speed = 2
+	else
+		speed = 7
+	. = ..()
+
+//midwives are the queen of the spiders, can send messages to all them and web faster. That rare round where you get a queen spider and turn your 'for honor' players into 'r6siege' players will be a fun one.
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
+	name = "midwife"
+	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
+	icon_state = "midwife"
+	icon_living = "midwife"
+	icon_dead = "midwife_dead"
+	maxHealth = 40
+	health = 40
+	var/datum/action/innate/spider/comm/letmetalkpls
+
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize()
+	. = ..()
+	letmetalkpls = new
+	letmetalkpls.Grant(src)
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/ice //spiders dont usually like tempatures of 140 kelvin who knew
+	name = "giant ice spider"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
+	color = rgb(114,228,250)
+	gold_core_spawnable = 0
+
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/ice
+	name = "giant ice spider"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
+	color = rgb(114,228,250)
+	gold_core_spawnable = 0
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice
+	name = "giant ice spider"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
+	color = rgb(114,228,250)
+	gold_core_spawnable = 0
+
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
 	if(!..()) //AIStatus is off
 		return 0
@@ -121,7 +202,7 @@
 		if(busy == MOVING_TO_TARGET)
 			if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
 				cocoon_target = null
-			busy = 0
+			busy = FALSE
 			stop_automated_movement = 0
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
@@ -130,7 +211,7 @@
 		if(!busy && prob(30))	//30% chance to stop wandering and do something
 			//first, check for potential food nearby to cocoon
 			for(var/mob/living/C in can_see)
-				if(C.stat && !istype(C,/mob/living/simple_animal/hostile/poison/giant_spider) && !C.anchored)
+				if(C.stat && !istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && !C.anchored)
 					cocoon_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
@@ -153,7 +234,7 @@
 						if(O.anchored)
 							continue
 
-						if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
+						if(isitem(O) || istype(O, /obj/structure) || istype(O, /obj/machinery))
 							cocoon_target = O
 							busy = MOVING_TO_TARGET
 							stop_automated_movement = 1
@@ -270,6 +351,39 @@
 					fed--
 		busy = SPIDER_IDLE
 		stop_automated_movement = FALSE
+
+/mob/living/simple_animal/hostile/poison/giant_spider/Login()
+	. = ..()
+	GLOB.spidermobs[src] = TRUE
+
+/mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
+	GLOB.spidermobs -= src
+	return ..()
+
+/datum/action/innate/spider/comm
+	name = "Command"
+	button_icon_state = "cult_comms"
+
+/datum/action/innate/spider/comm/IsAvailable()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife))
+		return FALSE
+	return TRUE
+
+/datum/action/innate/spider/comm/Trigger()
+	var/input = stripped_input(usr, "Input a message for your legions to follow.", "Command", "")
+	if(QDELETED(src) || !input || !IsAvailable())
+		return FALSE
+	spider_command(usr, input)
+	return TRUE
+
+/datum/action/innate/spider/comm/proc/spider_command(mob/living/user, message)
+	if(!message)
+		return
+	var/my_message
+	my_message = "<FONT size = 3><b>COMMAND FROM SPIDER QUEEN:</b> [message]</FONT>"
+	for(var/mob/living/simple_animal/hostile/poison/giant_spider/M in GLOB.spidermobs)
+		to_chat(M, my_message)
+	log_talk(user, "SPIDERCOMMAND: [key_name(user)] : [message]",LOGSAY)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
