@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(death_pred, list(
 GLOBAL_LIST_INIT(pred_vore_sounds, list(
 		"Rustle (cloth)" = 'sound/effects/rustle5.ogg',
 		"Honk"			=	'sound/items/bikehorn.ogg',
-		"Eternal Honk"	=	'sound/spookoween/scary_horn3',
+		"Eternal Honk"	=	'sound/spookoween/scary_horn3.ogg',
 		"None" = null))
 /*
 GLOBAL_LIST_INIT(pred_struggle_sounds, list(
