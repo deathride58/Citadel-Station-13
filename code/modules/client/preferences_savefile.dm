@@ -262,7 +262,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//citadel code
 	WRITE_FILE(S["screenshake"], screenshake)
 	WRITE_FILE(S["damagescreenshake"], damagescreenshake)
-	WRITE_FILE(S["arousable"], arousable)
+	WRITE_FILE(S["arousable"], FALSE)
 
 	return 1
 

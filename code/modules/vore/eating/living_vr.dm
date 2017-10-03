@@ -1,22 +1,21 @@
 ///////////////////// Mob Living /////////////////////
 /mob/living
-	var/digestable = TRUE					// Can the mob be digested inside a belly?
+	var/digestable = FALSE					// Can the mob be digested inside a belly?
 	var/datum/belly/vore_selected		// Default to no vore capability.
 	var/list/vore_organs = list()		// List of vore containers inside a mob
 	var/devourable = FALSE					// Can the mob be vored at all?
 //	var/feeding = FALSE					// Are we going to feed someone else?
 	var/vore_taste = null				// What the character tastes like
-	var/no_vore = FALSE 					// If the character/mob can vore.
+	var/no_vore = TRUE 					// If the character/mob can vore.
 	var/openpanel = 0					// Is the vore panel open?
 
 //
 // Hook for generic creation of stuff on new creatures
 //
 /hook/living_new/proc/vore_setup(mob/living/M)
-	M.verbs += /mob/living/proc/escapeOOC
-	M.verbs += /mob/living/proc/lick
+	//M.verbs += /mob/living/proc/escapeOOC
+	//M.verbs += /mob/living/proc/lick
 	if(M.no_vore) //If the mob isn's supposed to have a stomach, let's not give it an insidepanel so it can make one for itself, or a stomach.
-		M << "<span class='warning'>The creature that you are can not eat others.</span>"
 		return TRUE
 	M.verbs += /mob/living/proc/insidePanel
 

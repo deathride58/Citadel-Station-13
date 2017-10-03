@@ -301,7 +301,7 @@
 						return
 
 					selected.release_all_contents()
-					playsound(user, 'sound/vore/pred/escape.ogg', vol=80)
+					playsound(user, 'sound/effects/splat.ogg', vol=80)
 					to_chat(user.loc,"<span class='danger'>Everything is released from [user]!</span>")
 
 				if("Move all")
@@ -318,9 +318,6 @@
 						for(var/atom/movable/tgt in selected.internal_contents)
 							to_chat(tgt, "<span class='warning'>You're squished from [user]'s [selected] to their [B]!</span>")
 							selected.transfer_contents(tgt, B, 1)
-
-						for(var/mob/hearer in range(1,user))
-							hearer << sound('sound/vore/pred/stomachmove.ogg',volume=80)
 
 		var/atom/movable/tgt = locate(href_list["insidepick"])
 		if(!(tgt in selected.internal_contents)) //Old menu, needs updating because they aren't really there.
@@ -354,8 +351,6 @@
 					if (!(tgt in selected.internal_contents))
 						return FALSE
 					to_chat(tgt, "<span class='warning'>You're moved from [user]'s [lowertext(selected.name)] to their [lowertext(B.name)]!</span>")
-					for(var/mob/hearer in range(1,user))
-						hearer << sound('sound/vore/pred/stomachmove.ogg',volume=80)
 					selected.transfer_contents(tgt, B)
 
 	if(href_list["newbelly"])

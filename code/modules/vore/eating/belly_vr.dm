@@ -11,7 +11,7 @@
 /datum/belly
 	var/name								// Name of this location
 	var/inside_flavor						// Flavor text description of inside sight/sound/smells/feels.
-	var/vore_sound = 'sound/vore/pred/swallow_01.ogg'	// Sound when ingesting someone
+	var/vore_sound = 'sound/items/bikehorn.ogg'	// Sound when ingesting someone
 	var/vore_verb = "ingest"				// Verb for eating with this in messages
 	var/human_prey_swallow_time = 10 SECONDS		// Time in deciseconds to swallow /mob/living/carbon/human
 	var/nonhuman_prey_swallow_time = 5 SECONDS		// Time in deciseconds to swallow anything else
@@ -117,7 +117,6 @@
 		return 0
 	for (var/atom/movable/M in internal_contents)
 		M.forceMove(owner.loc)  // Move the belly contents into the same location as belly's owner.
-		M << sound(null, repeat = 0, wait = 0, volume = 80, channel = CHANNEL_PREYLOOP)
 		internal_contents.Remove(M)  // Remove from the belly contents
 
 		var/datum/belly/B = check_belly(owner) // This makes sure that the mob behaves properly if released into another mob
@@ -135,7 +134,6 @@
 		return FALSE // They weren't in this belly anyway
 
 	M.forceMove(owner.loc)  // Move the belly contents into the same location as belly's owner.
-	M << sound(null, repeat = 0, wait = 0, volume = 80, channel = CHANNEL_PREYLOOP)
 	src.internal_contents.Remove(M)  // Remove from the belly contents
 	var/datum/belly/B = check_belly(owner)
 	if(B)
@@ -157,7 +155,6 @@
 
 //	var/datum/belly/B = check_belly(owner)
 //	if(B.silenced == FALSE) //this needs more testing later
-	prey << sound('sound/vore/prey/loop.ogg', repeat = 1, wait = 0, volume = 35, channel = CHANNEL_PREYLOOP)
 
 	// Handle prey messages
 	if(inside_flavor)
@@ -273,7 +270,6 @@
 /datum/belly/proc/digestion_death(var/mob/living/M)
 	is_full = TRUE
 	internal_contents.Remove(M)
-	M << sound(null, repeat = 0, wait = 0, volume = 80, channel = CHANNEL_PREYLOOP)
 	// If digested prey is also a pred... anyone inside their bellies gets moved up.
 	if(is_vore_predator(M))
 		for(var/bellytype in M.vore_organs)
@@ -304,7 +300,6 @@
 		return  // User is not in this belly, or struggle too soon.
 
 	R.setClickCooldown(50)
-	var/sound/prey_struggle = sound(get_sfx("prey_struggle"))
 
 	if(owner.stat) //If owner is stat (dead, KO) we can actually escape
 		to_chat(R, "<span class='warning'>You attempt to climb out of \the [name]. (This will take around [escapetime/10] seconds.)</span>")
@@ -338,9 +333,6 @@
 //	for(var/mob/M in hearers(4, owner))
 //		M.visible_message(struggle_outer_message) // hearable
 	R.visible_message( "<span class='alert'>[struggle_outer_message]</span>", "<span class='alert'>[struggle_user_message]</span>")
-	playsound(get_turf(owner),"struggle_sound",35,0,-6,1,channel=151)
-	R.stop_sound_channel(151)
-	R.playsound_local(get_turf(R), null, 45, S = prey_struggle)
 
 	if(escapable && R.a_intent != "help") //If the stomach has escapable enabled and the person is actually trying to kick out
 		to_chat(R, "<span class='warning'>You attempt to climb out of \the [name].</span>")

@@ -49,17 +49,9 @@ GLOBAL_LIST_INIT(death_pred, list(
 */
 
 GLOBAL_LIST_INIT(pred_vore_sounds, list(
-		"Gulp" = 'sound/vore/pred/swallow_01.ogg',
-		"Swallow" = 'sound/vore/pred/swallow_02.ogg',
-		"Insertion1" = 'sound/vore/pred/insertion_01.ogg',
-		"Insertion2" = 'sound/vore/pred/insertion_02.ogg',
-		"Tauric Swallow" = 'sound/vore/pred/taurswallow.ogg',
-		"Schlorp" = 'sound/vore/pred/schlorp.ogg',
-		"Squish1" = 'sound/vore/pred/squish_01.ogg',
-		"Squish2" = 'sound/vore/pred/squish_02.ogg',
-		"Squish3" = 'sound/vore/pred/squish_03.ogg',
-		"Squish4" = 'sound/vore/pred/squish_04.ogg',
 		"Rustle (cloth)" = 'sound/effects/rustle5.ogg',
+		"Honk"			=	'sound/items/bikehorn.ogg',
+		"Eternal Honk"	=	'sound/spookoween/scary_horn3.ogg',
 		"None" = null))
 /*
 GLOBAL_LIST_INIT(pred_struggle_sounds, list(
@@ -69,17 +61,7 @@ GLOBAL_LIST_INIT(pred_struggle_sounds, list(
 		"Struggle4" = 'sound/vore/pred/struggle_04.ogg',
 		"Struggle5" = 'sound/vore/pred/struggle_05.ogg'))
 */
-GLOBAL_LIST_INIT(prey_vore_sounds, list(
-		"Gulp" = 'sound/vore/prey/swallow_01.ogg',
-		"Swallow" = 'sound/vore/prey/swallow_02.ogg',
-		"Insertion1" = 'sound/vore/prey/insertion_01.ogg',
-		"Insertion2" = 'sound/vore/prey/insertion_02.ogg',
-		"Tauric Swallow" = 'sound/vore/prey/taurswallow.ogg',
-		"Schlorp" = 'sound/vore/prey/schlorp.ogg',
-		"Squish1" = 'sound/vore/prey/squish_01.ogg',
-		"Squish2" = 'sound/vore/prey/squish_02.ogg',
-		"Squish3" = 'sound/vore/prey/squish_03.ogg',
-		"Squish4" = 'sound/vore/prey/squish_04.ogg'))
+GLOBAL_LIST_INIT(prey_vore_sounds, list())
 
 /*
 GLOBAL_LIST_INIT(prey_struggle_sounds, list(

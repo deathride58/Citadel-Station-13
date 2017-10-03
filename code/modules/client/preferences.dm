@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/menuoptions
 
 	//citadel code
-	var/arousable = TRUE //Allows players to disable arousal from the character creation menu
+	var/arousable = FALSE //Allows players to disable arousal from the character creation menu
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -256,8 +256,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : "Female"]</a><BR>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><BR>"
-			dat += "<b>Arousal:</b><a href='?_src_=prefs;preference=arousable'>[arousable == TRUE ? "Enabled" : "Disabled"]</a><BR>"
-			dat += "<b>Exhibitionist:</b><a href='?_src_=prefs;preference=exhibitionist'>[features["exhibitionist"] == TRUE ? "Yes" : "No"]</a><BR>"
 			dat += "<b>Special Names:</b><BR>"
 			dat += "<a href ='?_src_=prefs;preference=clown_name;task=input'><b>Clown:</b> [custom_names["clown"]]</a> "
 			dat += "<a href ='?_src_=prefs;preference=mime_name;task=input'><b>Mime:</b>[custom_names["mime"]]</a><BR>"
@@ -421,7 +419,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<b>Tertiary Color: </b><span style='border: 1px solid #161616; background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a><BR>"
 				if(pref_species.use_skintones)
 					dat += "<b>Skin Tone: </b><a href='?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a><BR>"
-					dat += "<b>Genitals Use Skintone:</b><a href='?_src_=prefs;preference=genital_colour'>[features["genitals_use_skintone"] == TRUE ? "Enabled" : "Disabled"]</a><BR>"
 
 				if(HAIR in pref_species.species_traits)
 					dat += "<b>Hair Style: </b><a href='?_src_=prefs;preference=hair_style;task=input'>[hair_style]</a><BR>"
@@ -475,58 +472,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 //			dat += "<b>Socks:</b><a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><br>"
 			dat += "<b>Backpack:</b><a href ='?_src_=prefs;preference=bag;task=input'>[backbag]</a><br>"
 			dat += "<b>Uplink Location:</b><a href ='?_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc]</a><br>"
-
-			dat += "<h2>Genitals</h2>"
-			if(NOGENITALS in pref_species.species_traits)
-				dat += "<b>Your species ([pref_species.name]) does not support genitals!</b><br>"
-			else
-				dat += "<b>Has Penis:</b><a href='?_src_=prefs;preference=has_cock'>[features["has_cock"] == TRUE ? "Yes" : "No"]</a><BR>"
-				if(features["has_cock"] == TRUE)
-					if(pref_species.use_skintones && features["genitals_use_skintone"] == TRUE)
-						dat += "<b>Penis Color:</b><span style='border: 1px solid #161616; background-color: #[skintone2hex(skin_tone)];'>&nbsp;&nbsp;&nbsp;</span>(Skin tone overriding)<BR>"
-					else
-						dat += "<b>Penis Color:</b><span style='border: 1px solid #161616; background-color: #[features["cock_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=cock_color;task=input'>Change</a><BR>"
-//					dat += "<br>"
-					dat += "<b>Penis Shape:</b> <a href='?_src_=prefs;preference=cock_shape;task=input'>[features["cock_shape"]]</a><BR>"
-					dat += "<b>Penis Length:</b> <a href='?_src_=prefs;preference=cock_length;task=input'>[features["cock_length"]] inch(es)</a><BR>"
-					dat += "<b>Has Testicles:</b><a href='?_src_=prefs;preference=has_balls'>[features["has_balls"] == TRUE ? "Yes" : "No"]</a><BR>"
-					if(features["has_balls"] == TRUE)
-						if(pref_species.use_skintones && features["genitals_use_skintone"] == TRUE)
-							dat += "<b>Testicles Color:</b><span style='border: 1px solid #161616; background-color: #[skintone2hex(skin_tone)];'>&nbsp;&nbsp;&nbsp;</span>(Skin tone overriding)<BR>"
-						else
-							dat += "<b>Testicles Color:</b><span style='border: 1px solid #161616; background-color: #[features["balls_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=balls_color;task=input'>Change</a><BR>"
-				dat += "<b>Has Vagina:</b><a href='?_src_=prefs;preference=has_vag'>[features["has_vag"] == TRUE ? "Yes" : "No"]</a><BR>"
-				if(features["has_vag"])
-					dat += "<b>Vagina Type:</b> <a href='?_src_=prefs;preference=vag_shape;task=input'>[features["vag_shape"]]</a><BR>"
-					if(pref_species.use_skintones && features["genitals_use_skintone"] == TRUE)
-						dat += "<b>Vagina Color:</b><span style='border: 1px solid #161616; background-color: #[skintone2hex(skin_tone)];'>&nbsp;&nbsp;&nbsp;</span>(Skin tone overriding)<BR>"
-					else
-						dat += "<b>Vagina Color:</b><span style='border: 1px solid #161616; background-color: #[features["vag_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=vag_color;task=input'>Change</a><BR>"
-					dat += "<b>Has Womb:</b><a href='?_src_=prefs;preference=has_womb'>[features["has_womb"] == TRUE ? "Yes" : "No"]</a><BR>"
-				dat += "<b>Has Breasts:</b><a href='?_src_=prefs;preference=has_breasts'>[features["has_breasts"] == TRUE ? "Yes" : "No"]</a><BR>"
-				if(features["has_breasts"])
-					if(pref_species.use_skintones && features["genitals_use_skintone"] == TRUE)
-						dat += "<b>Color:</b><span style='border: 1px solid #161616; background-color: #[skintone2hex(skin_tone)];'>&nbsp;&nbsp;&nbsp;</span>(Skin tone overriding)<BR>"
-					else
-						dat += "<b>Color:</b><span style='border: 1px solid #161616; background-color: #[features["breasts_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=breasts_color;task=input'>Change</a><BR>"
-					dat += "<b>Cup Size:</b><a href='?_src_=prefs;preference=breasts_size;task=input'>[features["breasts_size"]]</a><br>"
-					dat += "<b>Breast Shape:</b><a href='?_src_=prefs;preference=breasts_shape;task=input'>[features["breasts_shape"]]</a><br>"
-				/*
-				dat += "<h3>Ovipositor</h3>"
-				dat += "<b>Has Ovipositor:</b><a href='?_src_=prefs;preference=has_ovi'>[features["has_ovi"] == TRUE ? "Yes" : "No"]</a>"
-				if(features["has_ovi"])
-					dat += "<b>Ovi Color:</b><span style='border: 1px solid #161616; background-color: #[features["ovi_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ovi_color;task=input'>Change</a>"
-					dat += "<h3>Eggsack</h3>"
-					dat += "<b>Has Eggsack:</b><a href='?_src_=prefs;preference=has_eggsack'>[features["has_eggsack"] == TRUE ? "Yes" : "No"]</a><BR>"
-					if(features["has_eggsack"] == TRUE)
-						dat += "<b>Color:</b><span style='border: 1px solid #161616; background-color: #[features["eggsack_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=eggsack_color;task=input'>Change</a>"
-						dat += "<b>Egg Color:</b><span style='border: 1px solid #161616; background-color: #[features["eggsack_egg_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=egg_color;task=input'>Change</a>"
-						dat += "<b>Egg Size:</b><a href='?_src_=prefs;preference=egg_size;task=input'>[features["eggsack_egg_size"]]\" Diameter</a>"
-
-				dat += "</td>"
-				*/
-
-
 			dat += "</td></tr></table>"
 	dat += "<hr><center>"
 
@@ -1288,212 +1233,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pickedui)
 						UI_style = pickedui
 
-				//citadel code
-				if("cock_color")
-					var/new_cockcolor = input(user, "Penis color:", "Character Preference") as color|null
-					if(new_cockcolor)
-						var/temp_hsv = RGBtoHSV(new_cockcolor)
-						if(new_cockcolor == "#000000")
-							features["cock_color"] = pref_species.default_color
-						else if((MUTCOLORS_PARTSONLY in pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#202020")[3])
-							features["cock_color"] = sanitize_hexcolor(new_cockcolor)
-						else
-							user << "<span class='danger'>Invalid color. Your color is not bright enough.</span>"
-
-				if("cock_length")
-					var/new_length = input(user, "Penis length in inches:\n([COCK_SIZE_MIN]-[COCK_SIZE_MAX])", "Character Preference") as num|null
-					if(new_length)
-						features["cock_length"] = max(min( round(text2num(new_length)), COCK_SIZE_MAX),COCK_SIZE_MIN)
-
-				if("cock_shape")
-					var/new_shape
-					new_shape = input(user, "Penis shape:", "Character Preference") as null|anything in GLOB.cock_shapes_list
-					if(new_shape)
-						features["cock_shape"] = new_shape
-
-				if("balls_color")
-					var/new_ballscolor = input(user, "Testicle Color:", "Character Preference") as color|null
-					if(new_ballscolor)
-						var/temp_hsv = RGBtoHSV(new_ballscolor)
-						if(new_ballscolor == "#000000")
-							features["balls_color"] = pref_species.default_color
-						else if((MUTCOLORS_PARTSONLY in pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#202020")[3])
-							features["balls_color"] = sanitize_hexcolor(new_ballscolor)
-						else
-							user << "<span class='danger'>Invalid color. Your color is not bright enough.</span>"
-
-				if("egg_size")
-					var/new_size
-					var/list/egg_sizes = list(1,2,3)
-					new_size = input(user, "Egg Diameter(inches):", "Egg Size") as null|anything in egg_sizes
-					if(new_size)
-						features["eggsack_egg_size"] = new_size
-
-				if("egg_color")
-					var/new_egg_color = input(user, "Egg Color:", "Character Preference") as color|null
-					if(new_egg_color)
-						var/temp_hsv = RGBtoHSV(new_egg_color)
-						if(ReadHSV(temp_hsv)[3] >= ReadHSV("#202020")[3])
-							features["eggsack_egg_color"] = sanitize_hexcolor(new_egg_color)
-						else
-							user << "<span class='danger'>Invalid color. Your color is not bright enough.</span>"
-				if("breasts_size")
-					var/new_size
-					new_size = input(user, "Breast Size", "Character Preference") as null|anything in GLOB.breasts_size_list
-					if(new_size)
-						features["breasts_size"] = new_size
-
-				if("breasts_shape")
-					var/new_shape
-					new_shape = input(user, "Breast Shape", "Character Preference") as null|anything in GLOB.breasts_shapes_list
-					if(new_shape)
-						features["breasts_shape"] = new_shape
-
-				if("breasts_color")
-					var/new_breasts_color = input(user, "Breast Color:", "Character Preference") as color|null
-					if(new_breasts_color)
-						var/temp_hsv = RGBtoHSV(new_breasts_color)
-						if(new_breasts_color == "#000000")
-							features["breasts_color"] = pref_species.default_color
-						else if((MUTCOLORS_PARTSONLY in pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#202020")[3])
-							features["breasts_color"] = sanitize_hexcolor(new_breasts_color)
-						else
-							user << "<span class='danger'>Invalid color. Your color is not bright enough.</span>"
-				if("vag_shape")
-					var/new_shape
-					new_shape = input(user, "Vagina Type", "Character Preference") as null|anything in GLOB.vagina_shapes_list
-					if(new_shape)
-						features["vag_shape"] = new_shape
-				if("vag_color")
-					var/new_vagcolor = input(user, "Vagina color:", "Character Preference") as color|null
-					if(new_vagcolor)
-						var/temp_hsv = RGBtoHSV(new_vagcolor)
-						if(new_vagcolor == "#000000")
-							features["vag_color"] = pref_species.default_color
-						else if((MUTCOLORS_PARTSONLY in pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#202020")[3])
-							features["vag_color"] = sanitize_hexcolor(new_vagcolor)
-						else
-							user << "<span class='danger'>Invalid color. Your color is not bright enough.</span>"
-
 		else
 			switch(href_list["preference"])
 
 				//citadel code
-				if("genital_colour")
-					switch(features["genitals_use_skintone"])
-						if(TRUE)
-							features["genitals_use_skintone"] = FALSE
-						if(FALSE)
-							features["genitals_use_skintone"] = TRUE
-						else
-							features["genitals_use_skintone"] = FALSE
-				if("arousable")
-					switch(arousable)
-						if(TRUE)
-							arousable = FALSE
-						if(FALSE)
-							arousable = TRUE
-						else//failsafe
-							arousable = FALSE
-				if("has_cock")
-					switch(features["has_cock"])
-						if(TRUE)
-							features["has_cock"] = FALSE
-						if(FALSE)
-							features["has_cock"] = TRUE
-							features["has_ovi"] = FALSE
-							features["has_eggsack"] = FALSE
-						else
-							features["has_cock"] = FALSE
-							features["has_ovi"] = FALSE
-				if("has_balls")
-					switch(features["has_balls"])
-						if(TRUE)
-							features["has_balls"] = FALSE
-						if(FALSE)
-							features["has_balls"] = TRUE
-							features["has_eggsack"] = FALSE
-						else
-							features["has_balls"] = FALSE
-							features["has_eggsack"] = FALSE
-
-				if("has_ovi")
-					switch(features["has_ovi"])
-						if(TRUE)
-							features["has_ovi"] = FALSE
-						if(FALSE)
-							features["has_ovi"] = TRUE
-							features["has_cock"] = FALSE
-							features["has_balls"] = FALSE
-						else
-							features["has_ovi"] = FALSE
-							features["has_cock"] = FALSE
-
-				if("has_eggsack")
-					switch(features["has_eggsack"])
-						if(TRUE)
-							features["has_eggsack"] = FALSE
-						if(FALSE)
-							features["has_eggsack"] = TRUE
-							features["has_balls"] = FALSE
-						else
-							features["has_eggsack"] = FALSE
-							features["has_balls"] = FALSE
-
-				if("balls_internal")
-					switch(features["balls_internal"])
-						if(TRUE)
-							features["balls_internal"] = FALSE
-						if(FALSE)
-							features["balls_internal"] = TRUE
-							features["eggsack_internal"] = FALSE
-						else
-							features["balls_internal"] = FALSE
-							features["eggsack_internal"] = FALSE
-
-				if("eggsack_internal")
-					switch(features["eggsack_internal"])
-						if(TRUE)
-							features["eggsack_internal"] = FALSE
-						if(FALSE)
-							features["eggsack_internal"] = TRUE
-							features["balls_internal"] = FALSE
-						else
-							features["eggsack_internal"] = FALSE
-							features["balls_internal"] = FALSE
-
-				if("has_breasts")
-					switch(features["has_breasts"])
-						if(TRUE)
-							features["has_breasts"] = FALSE
-						if(FALSE)
-							features["has_breasts"] = TRUE
-						else
-							features["has_breasts"] = FALSE
-				if("has_vag")
-					switch(features["has_vag"])
-						if(TRUE)
-							features["has_vag"] = FALSE
-						if(FALSE)
-							features["has_vag"] = TRUE
-						else
-							features["has_vag"] = FALSE
-				if("has_womb")
-					switch(features["has_womb"])
-						if(TRUE)
-							features["has_womb"] = FALSE
-						if(FALSE)
-							features["has_womb"] = TRUE
-						else
-							features["has_womb"] = FALSE
-				if("exhibitionist")
-					switch(features["exhibitionist"])
-						if(TRUE)
-							features["exhibitionist"] = FALSE
-						if(FALSE)
-							features["exhibitionist"] = TRUE
-						else
-							features["exhibitionist"] = FALSE
 				if ("screenshake")
 					var/desiredshake = input(user, "Set the amount of screenshake you want. \n(0 = disabled, 100 = full, 200 = maximum.)", "Character Preference", screenshake)  as null|num
 					if (!isnull(desiredshake))
