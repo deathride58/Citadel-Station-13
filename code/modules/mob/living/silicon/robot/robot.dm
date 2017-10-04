@@ -208,7 +208,6 @@
 	"Miner" = /obj/item/robot_module/miner, \
 	"Janitor" = /obj/item/robot_module/janitor, \
 	"Service" = /obj/item/robot_module/butler, \
-	"MediHound" = /obj/item/robot_module/medihound, \
 	"Security K9" = /obj/item/robot_module/k9, \
 	"Scrub Puppy" = /obj/item/robot_module/scrubpup)
 	if(!config.forbid_peaceborg)
