@@ -62,7 +62,7 @@
 	if(ishuman(owner)) //recast to use update genitals proc
 		var/mob/living/carbon/human/H = owner
 		H.update_genitals()
-
+/*
 /mob/living/carbon/verb/toggle_genitals()
 	set category = "IC"
 	set name = "Expose/Hide genitals"
@@ -82,7 +82,7 @@
 	if(picked_organ)
 		picked_organ.toggle_through_clothes()
 	return
-
+*/
 
 
 
