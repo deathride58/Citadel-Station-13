@@ -6,7 +6,7 @@
 
 //
 // Simple proc for animals to have their digestion toggled on/off externally
-//
+/*
 /mob/living/simple_animal/verb/toggle_digestion()
 	set name = "Toggle Animal's Digestion"
 	set desc = "Enables digestion on this mob for 20 minutes."
@@ -41,4 +41,4 @@
 	if (T.devourable == FALSE)
 		to_chat(usr, "<span class='warning'>You can't eat this!</span>")
 		return
-	return feed_grabbed_to_self(src,T)
+	return feed_grabbed_to_self(src,T)*/
