@@ -10,8 +10,6 @@
 	var/mb_cd_timer = 0			//The timer itself
 
 /mob/living/carbon/human
-	canbearoused = TRUE
-
 	var/saved_underwear = ""//saves their underwear so it can be toggled later
 	var/saved_undershirt = ""
 
