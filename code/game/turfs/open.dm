@@ -6,6 +6,7 @@
 	var/postdig_icon
 	var/list/archdrops
 	var/wet
+	plane = OPENTURF_PLANE
 
 /turf/open/ComponentInitialize()
 	. = ..()

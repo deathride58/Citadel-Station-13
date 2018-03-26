@@ -16,11 +16,22 @@
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
 /obj/screen/plane_master/proc/backdrop(mob/mymob)
 
+/obj/screen/plane_master/floorsnshit
+	name = "open turf plane master"
+	plane = OPENTURF_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+
 /obj/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
+
+#define SHADOWTHING filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+/obj/screen/plane_master/game_world/Initialize()
+	. = ..()
+	filters += SHADOWTHING
 
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
