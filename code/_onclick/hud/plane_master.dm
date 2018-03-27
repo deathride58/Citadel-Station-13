@@ -29,9 +29,15 @@
 	blend_mode = BLEND_OVERLAY
 
 #define SHADOWTHING filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+//#define SHADOWTHING filter(type="outline", size=1, color="#2111E6")
 /obj/screen/plane_master/game_world/Initialize()
 	. = ..()
+	//color = list(0,-0.25,-0.25, -0.25,0,-0.25, 0.1,0.2,1, 0,0,0)
 	filters += SHADOWTHING
+
+///obj/screen/plane_master/floorsnshit/Initialize()
+//	. = ..()
+	//color = list(-1,-1,-0.5, -1,-1,-0.5, 0.1,0.2,1, 0,0,0)
 
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
