@@ -61,6 +61,8 @@ SUBSYSTEM_DEF(throwing)
 	var/delayed_time = 0
 	var/last_move = 0
 
+	var/motionblurfilter
+
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
 	if (!isturf(AM.loc) || !AM.throwing)
@@ -100,6 +102,11 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
+		if(!motionblurfilter)
+			motionblurfilter = filter(type="motion_blur",x=(step.x-AM.x)*(speed*2.5),y=(step.y-AM.y)*(speed*2.5))
+			AM.filters = null
+			AM.filters += motionblurfilter
+
 		AM.Move(step, get_dir(AM, step))
 
 		if (!AM.throwing) // we hit something during our move
@@ -117,6 +124,9 @@ SUBSYSTEM_DEF(throwing)
 	SSthrowing.processing -= thrownthing
 	//done throwing, either because it hit something or it finished moving
 	thrownthing.throwing = null
+	if(motionblurfilter)
+		thrownthing.filters -= motionblurfilter
+		motionblurfilter = null
 	if (!hit)
 		for (var/thing in get_turf(thrownthing)) //looking for our target on the turf we land on.
 			var/atom/A = thing

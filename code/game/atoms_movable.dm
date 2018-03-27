@@ -481,8 +481,8 @@
 		pulledby.stop_pulling()
 
 	throwing = TT
-	if(spin)
-		SpinAnimation(5, 1)
+	//if(spin)
+		//SpinAnimation(5, 1)
 
 	SSthrowing.processing[src] = TT
 	if (SSthrowing.state == SS_PAUSED && length(SSthrowing.currentrun))
