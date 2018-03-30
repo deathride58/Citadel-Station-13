@@ -37,7 +37,7 @@
 
 ///obj/screen/plane_master/floorsnshit/Initialize()
 //	. = ..()
-	//color = list(-1,-1,-0.5, -1,-1,-0.5, 0.1,0.2,1, 0,0,0)
+	//color = list(-1,-1,-1,0, -1,-1,-1,0, 0.1,0.2,1,0, 0,0,0,1, 0.8,0,0.6,0)
 
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
