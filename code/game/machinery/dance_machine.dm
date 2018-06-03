@@ -122,7 +122,7 @@
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				activate_music()
-				START_PROCESSING(SSobj, src)
+				START_PROCESSING(SSfastprocess, src)
 				updateUsrDialog()
 			else if(active)
 				stop = 0
@@ -144,7 +144,7 @@
 /obj/machinery/jukebox/proc/activate_music()
 	active = TRUE
 	update_icon()
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSfastprocess, src)
 	stop = world.time + selection.song_length
 
 /obj/machinery/jukebox/disco/activate_music()
@@ -436,22 +436,33 @@
 /obj/machinery/jukebox/process()
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection.song_path)
+		song_played.status = SOUND_UPDATE
+		var/area/currentarea = get_area(src)
 
-		for(var/mob/M in range(10,src))
-			if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+		for(var/mob/M in GLOB.player_list)
+			CHECK_TICK
+			if(!M.client)
 				continue
-			if(!(M in rangers))
-				rangers[M] = TRUE
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
-		for(var/mob/L in rangers)
-			if(get_dist(src,L) > 10)
-				rangers -= L
-				if(!L || !L.client)
-					continue
-				L.stop_sound_channel(CHANNEL_JUKEBOX)
+			if(!(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+				M.stop_sound_channel(CHANNEL_JUKEBOX)
+				continue
+			if(z == M.z)
+				song_played.volume = 100
+			else
+				song_played.volume = 0
+			var/inrange = FALSE
+			if(get_area(M) == currentarea)
+				inrange = TRUE
+			else if(M in hearers(7, src))
+				inrange = TRUE
+			M.playsound_local(get_turf(src), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, soundwet = (inrange ? -250 : 0), sounddry = (inrange ? 0 : -10000))
 	else if(active)
 		active = FALSE
-		STOP_PROCESSING(SSobj, src)
+		for(var/mob/M in GLOB.player_list)
+			if(!M.client)
+				continue
+			M.stop_sound_channel(CHANNEL_JUKEBOX)
+		STOP_PROCESSING(SSfastprocess, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
