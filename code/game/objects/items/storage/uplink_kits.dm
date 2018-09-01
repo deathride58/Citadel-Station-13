@@ -347,3 +347,5 @@
 	new /obj/item/gun/ballistic/automatic/pistol/m1911/kitchengun(src)
 	new /obj/item/ammo_box/magazine/m45/kitchengun(src)
 	new /obj/item/ammo_box/magazine/m45/kitchengun(src)
+	new /obj/item/laser_pointer(src)
+	new /obj/item/clothing/glasses/night(scr)
