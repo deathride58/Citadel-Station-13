@@ -109,6 +109,13 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+		if(new_area.ambient_lum_r != old_area.ambient_lum_r || new_area.ambient_lum_g != old_area.ambient_lum_g || new_area.ambient_lum_b != old_area.ambient_lum_b)
+			var/shouldbeambient = ((new_area.ambient_lum_r && new_area.ambient_lum_g && new_area.ambient_lum_b) ? TRUE : FALSE)
+			for(var/datum/lighting_corner/C in corners)
+				C.update_lumcount(new_area.ambient_lum_r - old_area.ambient_lum_r, new_area.ambient_lum_g - old_area.ambient_lum_g, new_area.ambient_lum_b - old_area.ambient_lum_b)
+				C.ambientlight = shouldbeambient
+				C.update_lumcount()
+
 
 /turf/proc/get_corners()
 	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
@@ -127,10 +134,19 @@
 	if (!corners)
 		corners = list(null, null, null, null)
 
+	var/area/area
+	if(isarea(loc))
+		area = loc
+	else
+		WARNING("where the fuck. where the fuck is [src]'s loc'")
+
 	for (var/i = 1 to 4)
 		if (corners[i]) // Already have a corner on this direction.
+			if((area.ambient_lum_r || area.ambient_lum_g || area.ambient_lum_b) && !corners[i]:ambientlight)
+				corners[i]:update_lumcount(area.ambient_lum_r, area.ambient_lum_g, area.ambient_lum_b)
+				corners[i]:ambientlight = TRUE
 			continue
 
-		corners[i] = new/datum/lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i])
+		corners[i] = new/datum/lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i], area.ambient_lum_r, area.ambient_lum_g, area.ambient_lum_b)
 
 

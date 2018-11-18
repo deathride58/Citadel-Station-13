@@ -27,6 +27,10 @@
 	for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 		S.update_starlight()
 
+	var/area/A = myturf.loc
+	if(istype(A) && (A.ambient_lum_r || A.ambient_lum_g || A.ambient_lum_b) && !myturf.lighting_corners_initialised)
+		myturf.generate_missing_corners()
+
 	needs_update = TRUE
 	GLOB.lighting_update_objects += src
 

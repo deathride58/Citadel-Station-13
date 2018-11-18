@@ -111,12 +111,21 @@
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = TRUE
+	ambient_lum_r = 0.2
+	ambient_lum_g = 0.1
+	ambient_lum_b = 0.025
 
 /area/lavaland/surface/outdoors/unexplored //monsters and ruins spawn here
 	icon_state = "unexplored"
+	ambient_lum_r = 0.1
+	ambient_lum_g = 0.05
+	ambient_lum_b = 0
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
 	icon_state = "danger"
+	ambient_lum_r = 0
+	ambient_lum_g = 0
+	ambient_lum_b = 0
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"

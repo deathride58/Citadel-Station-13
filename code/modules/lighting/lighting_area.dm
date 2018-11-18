@@ -1,6 +1,9 @@
 /area
 	luminosity           = TRUE
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	var/ambient_lum_r
+	var/ambient_lum_g
+	var/ambient_lum_b
 
 /area/proc/set_dynamic_lighting(var/new_dynamic_lighting = DYNAMIC_LIGHTING_ENABLED)
 	if (new_dynamic_lighting == dynamic_lighting)

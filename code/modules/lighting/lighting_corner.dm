@@ -18,6 +18,8 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 	var/lum_g = 0
 	var/lum_b = 0
 
+	var/ambientlight = FALSE
+
 	var/needs_update = FALSE
 
 	var/cache_r  = LIGHTING_SOFT_THRESHOLD
@@ -25,7 +27,7 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 	var/cache_b  = LIGHTING_SOFT_THRESHOLD
 	var/cache_mx = 0
 
-/datum/lighting_corner/New(var/turf/new_turf, var/diagonal)
+/datum/lighting_corner/New(var/turf/new_turf, var/diagonal, init_lum_r, init_lum_g, init_lum_b)
 	. = ..()
 	masters = list()
 	masters[new_turf] = turn(diagonal, 180)
@@ -72,6 +74,11 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 		masters[T]   = ((T.x > x) ? EAST : WEST) | ((T.y > y) ? NORTH : SOUTH) // Get the dir based on coordinates.
 		i            = GLOB.LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.corners[i] = src
+
+	//By the way are we ambiently lit
+	if(init_lum_r || init_lum_g || init_lum_b)
+		update_lumcount(init_lum_r, init_lum_g, init_lum_b)
+		ambientlight = TRUE
 
 	update_active()
 
