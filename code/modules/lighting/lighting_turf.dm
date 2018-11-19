@@ -109,12 +109,11 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
-		if(new_area.ambient_lum_r != old_area.ambient_lum_r || new_area.ambient_lum_g != old_area.ambient_lum_g || new_area.ambient_lum_b != old_area.ambient_lum_b)
+		/*if(new_area.ambient_lum_r != old_area.ambient_lum_r || new_area.ambient_lum_g != old_area.ambient_lum_g || new_area.ambient_lum_b != old_area.ambient_lum_b)
 			var/shouldbeambient = ((new_area.ambient_lum_r && new_area.ambient_lum_g && new_area.ambient_lum_b) ? TRUE : FALSE)
 			for(var/datum/lighting_corner/C in corners)
 				C.update_lumcount(new_area.ambient_lum_r - old_area.ambient_lum_r, new_area.ambient_lum_g - old_area.ambient_lum_g, new_area.ambient_lum_b - old_area.ambient_lum_b)
-				C.ambientlight = shouldbeambient
-				C.update_lumcount()
+				C.ambientlight = shouldbeambient*/
 
 
 /turf/proc/get_corners()
